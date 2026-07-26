@@ -1,0 +1,30 @@
+<svg viewBox="0 0 340 80" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="ink3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7b8bf0"/>
+      <stop offset="100%" stop-color="#4a5fd9"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Icon, scaled down and repositioned from mark-v2 -->
+  <g transform="translate(0, 5) scale(0.35)">
+    <path d="M100 34
+             L146 50
+             L146 100
+             C146 134 126 158 100 168
+             C74 158 54 134 54 100
+             L54 50
+             Z"
+          fill="none" stroke="url(#ink3)" stroke-width="5.5" stroke-linejoin="round"/>
+    <path d="M78 34 L86 20 L100 32 L114 20 L122 34"
+          fill="none" stroke="url(#ink3)" stroke-width="5.5" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="86" cy="20" r="3.5" fill="#e8ebfd"/>
+    <circle cx="100" cy="32" r="4" fill="#e8ebfd"/>
+    <circle cx="114" cy="20" r="3.5" fill="#e8ebfd"/>
+    <path d="M118 84 a30 30 0 1 0 0 40"
+          fill="none" stroke="#f2f1ec" stroke-width="9" stroke-linecap="round"/>
+  </g>
+
+  <!-- Wordmark -->
+  <text x="72" y="50" font-family="Archivo Black, Arial Black, sans-serif" font-size="34" fill="#f2f1ec" letter-spacing="1">CULLEN</text>
+</svg>
