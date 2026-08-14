@@ -480,8 +480,24 @@ section { padding: 90px 0; }
 .results-track-pad {
   flex: 0 0 calc(50vw - 155px);
 }
+.results-disclaimer {
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--text-faint);
+  margin: 36px auto 0;
+  opacity: 0.75;
+}
+.results-disclaimer strong {
+  color: rgba(255, 0, 0, 0.792);
+}
 @media (max-width: 700px) {
   .results-track-pad { flex-basis: calc(50vw - 120px); }
+  .results-disclaimer {
+    font-size: 11px;
+    margin-top: 24px;
+    padding: 0 12px;
+  }
 }
 
 .result-card {

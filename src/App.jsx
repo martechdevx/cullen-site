@@ -452,6 +452,11 @@ export default function App() {
               </div>
             ))}
           </div>
+
+          {/* DISCLAIMER BLOCK */}
+          <p className="results-disclaimer">
+            <strong>*DISCLAIMER:</strong> Individual results vary based on effort, budget, product offer, and market conditions. These feedbacks showcase real client outcomes achieved using this exact system, but past performance does not guarantee identical results. Your success depends on execution and consistency.
+          </p>
         </section>
       </main>
 
