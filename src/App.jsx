@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import heroImg from "./images/cullen.jpeg"
 import aboutImg from "./images/cullen2.jpeg"
 import webImg from "./images/web.png"
@@ -7,6 +7,17 @@ import metaimg from "./images/meta.png"
 import marketingImg from "./images/saless.png"
 import ecomImg from "./images/ecom.avif"
 // import logo from "./asset/Bc-logo.png"
+
+import shotFirstSale from "./images/results/first-sale.jpeg"
+import shotMillion from "./images/results/million-milestone.jpeg"
+import shot10kDay from "./images/results/10k-day.jpeg"
+import shot485 from "./images/results/485-growth.jpeg"
+import shot15k from "./images/results/1-5k-spike.jpeg"
+import shot19Days from "./images/results/19-days-in.jpeg"
+import shot100k from "./images/results/100k-day.jpeg"
+import shot155 from "./images/results/155-lift.jpeg"
+import shotFlooding from "./images/results/orders-flooding.jpeg"
+import shot82 from "./images/results/82-returning.png"
 
 const NAV_LINKS = ['About', 'Services', 'Work', 'Results', 'FAQ']
 
@@ -27,7 +38,7 @@ const SERVICES = [
     n: 'Conversion Rate Optimization',
     desc: 'Data-informed tweaks across your funnel — from landing page to checkout — focused on measurable lift.',
   },
-]
+];
 
 const WORK = [
   {
@@ -79,6 +90,69 @@ const TESTIMONIALS = [
   },
 ]
 
+const RESULT_SHOTS = [
+  {
+    tag: 'First Sale',
+    headline: "Landed his first order days after launch — before he even knew how to fulfill it.",
+    img: shotFirstSale,
+    accent: 'sage',
+  },
+  {
+    tag: '$1M Milestone',
+    headline: "Crossed $1,001,648 in total sales from a store that almost never launched.",
+    img: shotMillion,
+    accent: 'gold',
+  },
+  {
+    tag: '10K Day',
+    headline: "Another day on the books — $10K+ in sales and 190 orders in 24 hours.",
+    img: shot10kDay,
+    accent: 'sage',
+  },
+  {
+    tag: '485% Growth',
+    headline: "Sales up 485% and orders up 395% in the same stretch of days.",
+    img: shot485,
+    accent: 'gold',
+  },
+  {
+    tag: '1.5K% Spike',
+    headline: "33 orders in a single day — a jump the client couldn't quite believe.",
+    img: shot15k,
+    accent: 'sage',
+  },
+  {
+    tag: '19 Days In',
+    headline: "19 days since launch and already 'the most mind-blowing experience of my life.'",
+    img: shot19Days,
+    accent: 'gold',
+  },
+  {
+    tag: '$100K Day',
+    headline: "A single day that crossed six figures — $100,071 in sales.",
+    img: shot100k,
+    accent: 'sage',
+  },
+  {
+    tag: '155% Lift',
+    headline: "Sales, orders, and conversion rate all jumped together in the same week.",
+    img: shot155,
+    accent: 'gold',
+  },
+  {
+    tag: 'Orders Flooding In',
+    headline: "Order after order after order — back to back, all morning long.",
+    img: shotFlooding,
+    accent: 'sage',
+  },
+  {
+    tag: '82% Returning',
+    headline: "An 82% returning customer rate — proof the store keeps people coming back.",
+    img: shot82,
+    accent: 'gold',
+  },
+]
+
 const FAQS = [
   {
     q: 'What services do you offer?',
@@ -110,6 +184,90 @@ function FaqItem({ item, isOpen, onClick }) {
   )
 }
 
+function ResultsGallery({ items }) {
+  const trackRef = useRef(null)
+  const cardRefs = useRef([])
+
+  // Triplicate the array so the user can scroll endlessly in both directions
+  const displayItems = [...items, ...items, ...items]
+
+  useEffect(() => {
+    const track = trackRef.current
+    if (!track) return
+    let raf = null
+
+    // Start the scroll position at the middle set on load
+    if (track.scrollLeft === 0) {
+      track.scrollLeft = track.scrollWidth / 3
+    }
+
+    const update = () => {
+      const singleSetWidth = track.scrollWidth / 3
+
+      // Seamless wrap-around check when approaching edges
+      if (track.scrollLeft <= 10) {
+        track.scrollLeft += singleSetWidth
+      } else if (track.scrollLeft >= singleSetWidth * 2 - 10) {
+        track.scrollLeft -= singleSetWidth
+      }
+
+      // Dynamic coverflow depth and scale calculations
+      const trackRect = track.getBoundingClientRect()
+      const center = trackRect.left + trackRect.width / 2
+      cardRefs.current.forEach((el) => {
+        if (!el) return
+        const r = el.getBoundingClientRect()
+        const cardCenter = r.left + r.width / 2
+        const dist = Math.abs(center - cardCenter)
+        const maxDist = trackRect.width / 2 + r.width / 2
+        const t = Math.min(dist / maxDist, 1)
+        const scale = 1.08 - t * 0.28
+        const opacity = 1 - t * 0.6
+        el.style.transform = `scale(${scale.toFixed(3)})`
+        el.style.opacity = opacity.toFixed(3)
+        el.style.zIndex = String(Math.round((1 - t) * 100))
+      })
+    }
+
+    const onScroll = () => {
+      if (raf) return
+      raf = requestAnimationFrame(() => {
+        update()
+        raf = null
+      })
+    }
+
+    update()
+    track.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll)
+    return () => {
+      track.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+      if (raf) cancelAnimationFrame(raf)
+    }
+  }, [items])
+
+  return (
+    <div className="results-gallery">
+      <div className="results-track" ref={trackRef}>
+        {displayItems.map((r, i) => (
+          <div
+            className="result-card"
+            key={`${r.tag}-${i}`}
+            ref={(el) => (cardRefs.current[i] = el)}
+          >
+            <span className={`result-tag result-tag-${r.accent}`}>{r.tag}</span>
+            <p className="result-headline">{r.headline}</p>
+            <div className="result-shot">
+              <img src={r.img} alt={r.tag} loading="lazy" />
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="results-hint">&larr; Scroll to see more results &rarr;</div>
+    </div>
+  )
+}
 export default function App() {
   const [openFaq, setOpenFaq] = useState(0)
   const [menuOpen, setMenuOpen] = useState(false)
@@ -274,8 +432,16 @@ export default function App() {
         <section id="results">
           <div className="section-head">
             <span className="section-eyebrow">Client Feedback</span>
-            <h2>What store owners <em>say</em></h2>
+            <h2>People just like you who followed the right <em>system</em></h2>
           </div>
+        </section>
+      </main>
+
+      {/* RESULTS GALLERY (full-bleed horizontal scroll) */}
+      <ResultsGallery items={RESULT_SHOTS} />
+
+      <main className="container">
+        <section style={{ paddingTop: 0 }}>
           <div className="testi-grid">
             {TESTIMONIALS.map((t, i) => (
               <div className="testi-card" key={i}>
