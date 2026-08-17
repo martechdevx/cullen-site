@@ -475,8 +475,16 @@ section { padding: 90px 0; }
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
   cursor: grab;
+  user-select: none;
 }
 .results-track::-webkit-scrollbar { display: none; }
+.results-track:active,
+.results-track.is-dragging {
+  cursor: grabbing;
+}
+.results-track img {
+  pointer-events: none;
+}
 .results-track-pad {
   flex: 0 0 calc(50vw - 155px);
 }

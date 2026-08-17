@@ -195,6 +195,9 @@ function ResultsGallery({ items }) {
     const track = trackRef.current
     if (!track) return
     let raf = null
+    let isDown = false
+    let startX = 0
+    let startScrollLeft = 0
 
     // Start the scroll position at the middle set on load
     if (track.scrollLeft === 0) {
@@ -237,11 +240,45 @@ function ResultsGallery({ items }) {
       })
     }
 
+    const onMouseDown = (e) => {
+      isDown = true
+      track.classList.add('is-dragging')
+      startX = e.pageX - track.offsetLeft
+      startScrollLeft = track.scrollLeft
+    }
+
+    const onMouseLeave = () => {
+      isDown = false
+      track.classList.remove('is-dragging')
+    }
+
+    const onMouseUp = () => {
+      isDown = false
+      track.classList.remove('is-dragging')
+    }
+
+    const onMouseMove = (e) => {
+      if (!isDown) return
+      e.preventDefault()
+      const x = e.pageX - track.offsetLeft
+      const walk = (x - startX) * 1.5 // Adjust 1.5 multiplier to change scroll speed
+      track.scrollLeft = startScrollLeft - walk
+    }
+
     update()
     track.addEventListener('scroll', onScroll, { passive: true })
+    track.addEventListener('mousedown', onMouseDown)
+    track.addEventListener('mouseleave', onMouseLeave)
+    track.addEventListener('mouseup', onMouseUp)
+    track.addEventListener('mousemove', onMouseMove)
     window.addEventListener('resize', onScroll)
+
     return () => {
       track.removeEventListener('scroll', onScroll)
+      track.removeEventListener('mousedown', onMouseDown)
+      track.removeEventListener('mouseleave', onMouseLeave)
+      track.removeEventListener('mouseup', onMouseUp)
+      track.removeEventListener('mousemove', onMouseMove)
       window.removeEventListener('resize', onScroll)
       if (raf) cancelAnimationFrame(raf)
     }
@@ -264,7 +301,7 @@ function ResultsGallery({ items }) {
           </div>
         ))}
       </div>
-      <div className="results-hint">&larr; Scroll to see more results &rarr;</div>
+      <div className="results-hint">&larr; Scroll or drag to see more results &rarr;</div>
     </div>
   )
 }
