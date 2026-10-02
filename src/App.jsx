@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import heroImg from "./images/cullen.jpeg"
-import aboutImg from "./images/cullen2.jpeg"
+import aboutImg from "./images/cport.jpg"
 import webImg from "./images/web.png"
 import websImg from "./images/store 2.png"
 import metaimg from "./images/meta.png"
@@ -18,6 +18,7 @@ import shot100k from "./images/results/100k-day.jpeg"
 import shot155 from "./images/results/155-lift.jpeg"
 import shotFlooding from "./images/results/orders-flooding.jpeg"
 import shot82 from "./images/results/82-returning.png"
+
 
 const NAV_LINKS = ['About', 'Services', 'Work', 'Results', 'FAQ']
 
@@ -66,7 +67,7 @@ const WORK = [
     tag: 'Agency',
     title: 'Full-Service Projects',
     desc: 'For end-to-end builds \u2014 design, storefront setup, and marketing growth, see the agency side of the work at Cullen Consult.',
-    href: 'https://cullenconsult.framer.website/',
+    href: 'https://cullenconsults.pages.dev/',
     src: ecomImg,
     external: true,
   },
@@ -305,9 +306,199 @@ function ResultsGallery({ items }) {
     </div>
   )
 }
+
+function AnimatedCount({ value }) {
+  const [count, setCount] = useState(1)
+  const countRef = useRef(null)
+
+  useEffect(() => {
+    const element = countRef.current
+    if (!element) return
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setCount(value)
+      return
+    }
+
+    let frameId
+    let observer
+    let startTime
+    let previousCount = 1
+
+    const animate = (timestamp) => {
+      if (startTime === undefined) startTime = timestamp
+      const progress = Math.min((timestamp - startTime) / 1800, 1)
+      const easedProgress = 1 - Math.pow(1 - progress, 4)
+      const nextCount = Math.max(1, Math.floor(1 + (value - 1) * easedProgress))
+
+      if (nextCount !== previousCount) {
+        previousCount = nextCount
+        setCount(nextCount)
+      }
+
+      if (progress < 1) frameId = requestAnimationFrame(animate)
+    }
+
+    const start = () => {
+      frameId = requestAnimationFrame(animate)
+    }
+
+    if ('IntersectionObserver' in window) {
+      observer = new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting) {
+          observer.disconnect()
+          start()
+        }
+      }, { threshold: 0.5 })
+      observer.observe(element)
+    } else {
+      start()
+    }
+
+    return () => {
+      observer?.disconnect()
+      if (frameId) cancelAnimationFrame(frameId)
+    }
+  }, [value])
+
+  return <strong ref={countRef} aria-label={`${value}+ clients mentored`}>{count}+</strong>
+}
+
+function ApplyHerePage() {
+  const applyUrl = 'https://form.typeform.com/to/jM26rk0a'
+  const blueprintUrl = 'https://gamma.app/docs/The-Authority-Blueprint-A-to-Z-roadmap--az3wpx7hqq4idcd'
+  const blueprintEmbedUrl = 'https://gamma.app/embed/az3wpx7hqq4idcd'
+
+  return (
+    <div className="apply-page" id="top">
+      <nav className="nav">
+        <div className="nav-inner">
+          <a className="logo" href="/">Benedict Cullen</a>
+          <a className="nav-cta" href="/">Back to Home</a>
+        </div>
+      </nav>
+
+      <main>
+        <header className="apply-hero">
+          <div className="apply-hero-glow" />
+          <div className="container apply-hero-inner">
+            <span className="hero-eyebrow">Professional Mentorship &amp; Consulting</span>
+            <h1><span>Unlock Your Success Journey</span><span>Work With Me Directly</span></h1>
+            <p>High-impact mentorship and roadmap strategies for serious growth.</p>
+            <a className="btn-primary" href={applyUrl} target="_blank" rel="noopener noreferrer">Apply Now <span aria-hidden="true">&rarr;</span></a>
+            <div className="apply-client-count"><AnimatedCount value={57} /><span>Clients Mentored</span></div>
+          </div>
+        </header>
+
+        <section className="apply-proof">
+          <div className="container apply-proof-points">
+            <p><span aria-hidden="true">✦</span> Mentored 50+ clients</p>
+            <p><span aria-hidden="true">↗</span> Avg. 2.5x growth</p>
+            <p><span aria-hidden="true">◎</span> Trusted by entrepreneurs worldwide</p>
+          </div>
+        </section>
+
+        <section className="container apply-section">
+          <div className="section-head">
+            <span className="section-eyebrow">Client outcomes</span>
+            <h2>Real results from <em>real clients</em></h2>
+          </div>
+          <div className="apply-testimonials">
+            <article><div className="testi-stars">★★★★★</div><p>“Doubled revenue in 90 days”</p><span>— Chris M.</span></article>
+            <article><div className="testi-stars">★★★★★</div><p>“3x revenue growth in 6 weeks”</p><span>— Sarah L.</span></article>
+            <article><div className="testi-stars">★★★★★</div><p>“Scaled from $5k to $25k/month”</p><span>— Michael R.</span></article>
+          </div>
+        </section>
+
+        <section className="apply-blueprint">
+          <div className="container apply-blueprint-inner">
+            <div>
+              <span className="section-eyebrow">Exclusive offer</span>
+              <h2>The Authority <em>Blueprint</em></h2>
+              <p className="apply-blueprint-subtitle">A to Z Roadmap to Dropshipping</p>
+              <ul className="apply-benefits">
+                <li>Step-by-step system for scaling your business</li>
+                <li>Proven templates, strategies, and tools</li>
+                <li>Instant access and implementation guidance</li>
+                <li>Personal support and accountability</li>
+                <li>Industry-tested frameworks</li>
+                <li>Lifetime access to resources</li>
+              </ul>
+              <a className="btn-primary" href={blueprintUrl} target="_blank" rel="noopener noreferrer">Access the Roadmap <span aria-hidden="true">&rarr;</span></a>
+            </div>
+            <div className="apply-blueprint-preview">
+              <div className="apply-preview-toolbar">
+                <span className="apply-preview-status">Live roadmap preview</span>
+                <a href={blueprintUrl} target="_blank" rel="noopener noreferrer">Open full roadmap <span aria-hidden="true">↗</span></a>
+              </div>
+              <iframe
+                className="apply-blueprint-iframe"
+                src={blueprintEmbedUrl}
+                title="The Authority Blueprint roadmap preview"
+                loading="lazy"
+                allow="fullscreen"
+              />
+            </div>
+          </div>
+        </section>
+
+        <section className="container apply-section apply-process">
+          <div className="section-head">
+            <span className="section-eyebrow">Your next steps</span>
+            <h2>How it <em>works</em></h2>
+            <p>A simple 3-step process to transform your business.</p>
+          </div>
+          <div className="apply-steps">
+            <article><span>01</span><h3>Apply</h3><p>Fill form to start your journey.</p></article>
+            <article><span>02</span><h3>Strategy</h3><p>Personal mentorship &amp; roadmap planning.</p></article>
+            <article><span>03</span><h3>Execute</h3><p>Implement strategies and scale your results.</p></article>
+          </div>
+          <p className="apply-timeline">Average time to see results: Most clients see significant improvements within 30-90 days of implementation.</p>
+        </section>
+
+        <section className="apply-final-cta">
+          <div className="container">
+            <span className="section-eyebrow">Limited availability</span>
+            <h2>Ready to transform your business?</h2>
+            <p>Join successful entrepreneurs who’ve already taken the leap. Your journey starts today.</p>
+            <div className="hero-ctas">
+              <a className="btn-primary" href={applyUrl} target="_blank" rel="noopener noreferrer">Apply Now <span aria-hidden="true">&rarr;</span></a>
+              <a className="btn-secondary" href={applyUrl} target="_blank" rel="noopener noreferrer">Get 1-on-1 Mentorship</a>
+            </div>
+            <div className="apply-final-proof"><span>50+ Success Stories</span><span>Proven Results</span></div>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <div className="container">
+          <div className="apply-footer-top">
+            <div>
+              <h3>CullenConsults</h3>
+              <p>Empowering entrepreneurs and business owners to achieve extraordinary growth through proven strategies and personalized mentorship.</p>
+            </div>
+            <nav aria-label="Footer links">
+              <a href="/">Home</a>
+              <a href={applyUrl} target="_blank" rel="noopener noreferrer">Apply Now</a>
+            </nav>
+          </div>
+          <div className="footer-bottom">
+            <span>&copy; {new Date().getFullYear()} CullenConsults. All rights reserved.</span>
+            <a href="#top">Back to top &uarr;</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+  )
+}
+
 export default function App() {
   const [openFaq, setOpenFaq] = useState(0)
   const [menuOpen, setMenuOpen] = useState(false)
+
+  if (window.location.pathname.replace(/\/$/, '') === '/applyhere') {
+    return <ApplyHerePage />
+  }
 
   return (
     <>
@@ -536,7 +727,7 @@ export default function App() {
             <div className="cta-card">
               <h3>Full Agency Build</h3>
               <p>For complete store builds, branding, and ongoing growth work, see the agency side of things at Cullen Consult.</p>
-              <a href="https://cullenconsult.framer.website/" target="_blank" rel="noopener noreferrer" className="btn-secondary">Visit Cullen Consult &rarr;</a>
+              <a href="https://cullenconsults.pages.dev/" target="_blank" rel="noopener noreferrer" className="btn-secondary">Visit Cullen Consult &rarr;</a>
             </div>
           </div>
         </section>
@@ -565,7 +756,7 @@ export default function App() {
             <span className="section-eyebrow">Contact</span>
             <h2>Let&rsquo;s talk about <em>your store</em></h2>
           </div>
-          <a href="https://workwithcullen.figma.site/" className="btn-primary">Apply Here &rarr;</a>
+          <a href="/applyhere" className="btn-primary">Apply Here &rarr;</a>
           {/* <p style={{color: 'var(--text-faint)', fontSize: 13, marginTop: 16}}>
             cullenbenedict1@gmail.com &middot; Typically replies within 24 hours
           </p> */}
@@ -597,7 +788,7 @@ export default function App() {
           </div>
           <h2 className="footer-name">CULLEN</h2>
           <div className="footer-bottom">
-            <span>&copy; 2026 Benedict Cullen. All rights reserved.</span>
+            <span>&copy; {new Date().getFullYear()} Benedict Cullen. All rights reserved.</span>
             <a href="#top">Back to top &uarr;</a>
           </div>
         </div>

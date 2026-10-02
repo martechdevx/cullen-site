@@ -699,3 +699,106 @@ footer {
 }
 .footer-bottom a { color: var(--text-faint); }
 .footer-bottom a:hover { color: var(--gold-bright); }
+
+/* ---------- APPLY PAGE ---------- */
+.apply-page { min-height: 100vh; }
+.apply-page .nav-inner { min-height: 66px; }
+.apply-page .apply-hero {
+  position: relative;
+  overflow: hidden;
+  padding: 100px 0 76px;
+  border-bottom: 1px solid var(--line);
+  text-align: center;
+}
+.apply-hero-glow {
+  position: absolute;
+  inset: -230px 0 auto;
+  height: 540px;
+  background: radial-gradient(ellipse at center, rgba(74,95,217,0.2), transparent 68%);
+  pointer-events: none;
+}
+.apply-hero-inner { position: relative; }
+.apply-hero .hero-eyebrow { margin-bottom: 22px; }
+.apply-hero h1 {
+  margin: 0 auto 20px;
+  font-family: var(--display);
+  font-size: clamp(38px, 6vw, 72px);
+  line-height: 1.04;
+  background: linear-gradient(180deg, #fff 0%, #c9c9c9 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.apply-hero h1 span { display: block; }
+.apply-hero-inner > p { color: var(--text-dim); font-size: 18px; margin: 0 auto 28px; }
+.apply-client-count { display: flex; flex-direction: column; gap: 2px; margin-top: 38px; }
+.apply-client-count strong { display: inline-block; color: var(--gold-bright); font: 32px var(--display); font-variant-numeric: tabular-nums; }
+.apply-client-count span { color: var(--text-faint); font-size: 12px; letter-spacing: 1.2px; text-transform: uppercase; }
+.apply-proof { border-bottom: 1px solid var(--line); background: var(--bg-raised); }
+.apply-proof-points { display: flex; justify-content: space-between; gap: 20px; padding-top: 22px; padding-bottom: 22px; }
+.apply-proof-points p { color: var(--text-dim); font-size: 14px; margin: 0; }
+.apply-proof-points span { color: var(--sage-bright); margin-right: 8px; }
+.apply-section { padding-top: 82px; padding-bottom: 82px; }
+.apply-page .section-head { margin-bottom: 36px; }
+.apply-page .section-head h2,
+.apply-blueprint h2,
+.apply-final-cta h2 { font-family: var(--display); font-size: clamp(30px, 5vw, 48px); line-height: 1.08; margin: 12px 0; }
+.apply-testimonials { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.apply-testimonials article {
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--bg-card);
+}
+.apply-testimonials p { font-size: 17px; line-height: 1.5; margin: 16px 0 12px; }
+.apply-testimonials article > span { color: var(--text-faint); font-size: 13px; }
+.apply-blueprint { background: var(--bg-raised); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.apply-blueprint-inner { display: grid; grid-template-columns: 1.2fr 0.8fr; align-items: center; gap: 64px; padding-top: 76px; padding-bottom: 76px; }
+.apply-blueprint h2 { margin-top: 16px; }
+.apply-blueprint-subtitle { color: var(--text-dim); font-size: 18px; margin: 0 0 26px; }
+.apply-benefits { list-style: none; display: grid; gap: 13px; padding: 0; margin: 0 0 30px; color: var(--text-dim); }
+.apply-benefits li::before { content: '✓'; color: var(--sage-bright); margin-right: 11px; }
+.apply-blueprint-preview { min-width: 0; overflow: hidden; border: 1px solid var(--line-strong); border-radius: 8px; background: var(--bg-card); }
+.apply-preview-toolbar { min-height: 48px; display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 0 14px; border-bottom: 1px solid var(--line); }
+.apply-preview-status { display: inline-flex; align-items: center; gap: 9px; color: var(--text-faint); font-size: 10px; letter-spacing: 1px; text-transform: uppercase; white-space: nowrap; }
+.apply-preview-status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--sage-bright); box-shadow: 0 0 10px rgba(107,191,173,0.75); }
+.apply-preview-toolbar a { display: inline-flex; align-items: center; gap: 5px; color: var(--text-dim); font-size: 12px; white-space: nowrap; }
+.apply-preview-toolbar a:hover { color: var(--gold-bright); }
+.apply-blueprint-iframe { display: block; width: 100%; height: 360px; border: 0; background: #f4f0ef; }
+.apply-process .section-head > p { color: var(--text-dim); }
+.apply-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+.apply-steps article { border-top: 1px solid var(--line-strong); padding-top: 20px; }
+.apply-steps article > span { color: var(--gold-bright); font-size: 13px; letter-spacing: 1px; }
+.apply-steps h3 { font: 24px var(--display); margin: 20px 0 8px; }
+.apply-steps p { color: var(--text-dim); line-height: 1.6; margin: 0; }
+.apply-timeline { color: var(--text-faint); font-size: 13px; line-height: 1.6; margin: 34px 0 0; }
+.apply-final-cta {
+  padding: 82px 0;
+  border-top: 1px solid var(--line);
+  background: radial-gradient(ellipse at 50% 0%, rgba(74,95,217,0.16), transparent 65%);
+  text-align: center;
+}
+.apply-final-cta .section-eyebrow { color: var(--sage-bright); }
+.apply-final-cta h2 { max-width: 720px; margin: 16px auto; }
+.apply-final-cta p { max-width: 590px; color: var(--text-dim); line-height: 1.6; margin: 0 auto 26px; }
+.apply-final-cta .hero-ctas { justify-content: center; }
+.apply-final-proof { display: flex; justify-content: center; gap: 28px; margin-top: 32px; color: var(--text-faint); font-size: 12px; text-transform: uppercase; letter-spacing: 1px; }
+.apply-footer-top { display: flex; justify-content: space-between; gap: 32px; margin-bottom: 44px; }
+.apply-footer-top > div { max-width: 500px; }
+.apply-footer-top h3 { font: 20px var(--display); margin: 0 0 12px; }
+.apply-footer-top p { color: var(--text-dim); font-size: 14px; line-height: 1.6; margin: 0; }
+.apply-footer-top nav { display: flex; align-items: flex-start; gap: 22px; }
+.apply-footer-top nav a { color: var(--text-dim); font-size: 13px; }
+.apply-footer-top nav a:hover { color: var(--gold-bright); }
+@media (max-width: 700px) {
+  .apply-page .apply-hero { padding: 76px 0 58px; }
+  .apply-proof-points { flex-direction: column; gap: 14px; }
+  .apply-section { padding-top: 60px; padding-bottom: 60px; }
+  .apply-testimonials, .apply-steps { grid-template-columns: 1fr; }
+  .apply-blueprint-inner { grid-template-columns: 1fr; gap: 34px; padding-top: 60px; padding-bottom: 60px; }
+  .apply-blueprint-iframe { height: 320px; }
+  .apply-final-cta { padding: 64px 0; }
+  .apply-final-cta .hero-ctas { align-items: stretch; flex-direction: column; }
+  .apply-final-proof { flex-direction: column; gap: 10px; }
+  .apply-footer-top { flex-direction: column; }
+}
