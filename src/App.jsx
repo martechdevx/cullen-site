@@ -390,13 +390,13 @@ function ApplyHerePage() {
           </div>
         </header>
 
-        <section className="apply-proof">
+        {/* <section className="apply-proof">
           <div className="container apply-proof-points">
             <p><span aria-hidden="true">✦</span> Mentored 50+ clients</p>
             <p><span aria-hidden="true">↗</span> Avg. 2.5x growth</p>
             <p><span aria-hidden="true">◎</span> Trusted by entrepreneurs worldwide</p>
           </div>
-        </section>
+        </section> */}
 
         <section className="container apply-section">
           <div className="section-head">
